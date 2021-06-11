@@ -57,17 +57,12 @@ const tests = {
       },
       {
         overlay: {
-          error: true,
+          errors: true,
         },
       },
       {
         overlay: {
           warnings: true,
-        },
-      },
-      {
-        overlay: {
-          arbitrary: '',
         },
       },
       {
@@ -129,6 +124,11 @@ const tests = {
       {
         overlay: {
           warnings: '',
+        },
+      },
+      {
+        overlay: {
+          arbitrary: '',
         },
       },
       {
@@ -242,6 +242,7 @@ const tests = {
     success: [
       true,
       'foo',
+      [],
       ['foo', 'bar'],
       { target: true },
       { target: 'foo' },
@@ -255,7 +256,7 @@ const tests = {
       },
       {},
     ],
-    failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
+    failure: ['', { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
     success: ['8080', 8080, 'auto'],
@@ -263,11 +264,17 @@ const tests = {
   },
   proxy: {
     success: [
+      [
+        {
+          context: ['/auth', '/api'],
+          target: 'http://localhost:3000',
+        },
+      ],
       {
         '/api': 'http://localhost:3000',
       },
     ],
-    failure: [[], () => {}, false],
+    failure: [() => {}, false],
   },
   static: {
     success: [
